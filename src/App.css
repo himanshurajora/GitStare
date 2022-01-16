@@ -1,0 +1,111 @@
+body{
+  background: #333d29;
+}
+.App {
+  text-align: center;
+  color: #c2c5aa;
+}
+
+/* input type text */
+input[type=text] {
+  padding: 12px 20px;
+  margin: 8px 20px;
+  box-sizing: border-box;
+  border: none;
+  border-bottom: 2px solid #c2c5aa;
+  background: #333d29;
+  color: #c2c5aa;
+  transition: 0.4s;
+  font-size: medium;
+  text-align: center;
+}
+
+input[type=text]:hover{
+  outline: none;
+}
+
+input[type=text]:focus {
+  border-bottom: 2px dashed #c2c5aa;
+}
+
+input[type=text]:focus::placeholder {
+  color: transparent;
+}
+
+input[type=submit]{
+  background: #c2c5aa;
+  color: #333d29;
+  padding: 12px 20px;
+  margin: 8px 20px;
+  box-sizing: border-box;
+  border: none;
+  transition: 0.4s;
+  font-size: medium;
+  text-align: center;
+}
+
+.heading{
+  font-size: 2em;
+  font-weight: bold;
+}
+
+.activity-section{
+  margin-top: 20px;
+}
+
+.activity-section-header{
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
+.activity-section-body{
+  font-size: 1.1em;
+  display: flex;
+ flex-direction: column;
+ align-items: center;
+}
+
+.activity-item-new{
+  margin: 10px 20px;
+  background: #7F4F24;
+  padding: 10px;
+}
+
+.activity-item-old{
+  margin: 10px 20px;
+  background: #656D4A;
+  padding: 10px;
+}
+
+.activity-item-header{
+
+}
+
+.item-type{
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
+.item-repo-link{
+  font-size: small;
+  text-decoration: none;
+  color: #c2c5aa;
+  text-decoration: underline;
+}
+
+.activity-item{
+  width: 100%;
+}
+@media only screen and (min-width: 1200px){
+  .activity-item{
+    width: 50%;
+  }
+}
+
+.item-commit-item-message{
+  color : #C2C5AA;
+}
+
+.item-commit-item-author{
+  font-size: small;
+}
