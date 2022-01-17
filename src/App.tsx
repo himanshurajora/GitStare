@@ -29,15 +29,23 @@ function App() {
   return (
     <div className="App">
       <div className="heading">
-        <u><b>Git Stare</b></u>
+        <abbr title='Stare At Gits Without Loading Entire Github Page'><b>Git Stare 🥸</b></abbr>
+
       </div>
       <form onSubmit={handleSubmit}>
-        <input type="text" placeholder='Enter Username...' name='username' className="search" />
+        <input type="text" placeholder='Enter Username...' autoComplete={"none"} name='username' className="search" />
         <input type='submit' className="search-button" value={"Search"} />
       </form>
       <div>
         <div className="activity-section">
           <div className="activity-section-header">
+            {
+              activity.length ?
+                <img src={activity[0].actor["avatar_url"]} className="avatar" alt="Profile" />
+                :
+                <></>
+            }
+            <br />
             Most Recent Activity of {username}
           </div>
           <br />
@@ -51,23 +59,26 @@ function App() {
                         <div className="item-type">
                           {item.type}
                         </div>
+                          <p className='time-stamp'>
+                            {new Date(item.created_at).toDateString()}
+                          </p>
                         <div className="item-repo">
                           <a className='item-repo-link' href={"https://github.com/" + item.repo.name}>{item.repo.name}</a>
                         </div>
                         {
                           item.type === "PushEvent" ?
                             <div className="item-commit">
+                              Related Commits
                               {
                                 item.payload.commits.map((commit: any, index: any) => {
                                   return (
                                     <div className="item-commit-item">
-                                      Related Commits
                                       <div className="item-commit-item-message">
-                                       `Commit {index + 1} Message`` :  {commit.message}
+                                        {index + 1} ➡️  {commit.message}
                                       </div>
-                                      <div className="item-commit-item-author">
+                                      {/* <div className="item-commit-item-author">
                                         {commit.author.name}
-                                      </div>
+                                      </div> */}
                                     </div>
                                   )
                                 }
@@ -83,6 +94,9 @@ function App() {
             }
           </div>
         </div>
+      </div>
+      <div className="footer">
+        Made By Vedik Dev - <a href="https://github.com/himanshurajora" className='footer-link'>Himanshu Jangid</a>
       </div>
     </div>
   )
