@@ -2,9 +2,19 @@ import { FormEvent, FormEventHandler, useEffect, useState } from 'react'
 import logo from './logo.svg'
 import './App.css'
 
+// My react hook getting username from router params
+// I don't need a hook in this case, but I'll make one anyway, because it looks cool
+// its the most simple react hook ever, technically it's not even a hook 
+function useUsername() {
+  const url = new URL(window.location.href)
+  const username = url.pathname.split('/')[1]
+  return username
+}
 function App() {
   const [count, setCount] = useState(0)
-  const [username, setUsername] = useState<FormDataEntryValue | null>("");
+  const paramUsername = useUsername()
+  const [message, setMessage] = useState('')
+  const [username, setUsername] = useState<FormDataEntryValue | null>(paramUsername);
   const [activity, setActivity] = useState<any[]>([]);
   // loading state  
   const [loading, setLoading] = useState(false);
@@ -18,11 +28,17 @@ function App() {
       setLoading(true);
       fetch("https://api.github.com/users/" + username + "/events")
         .then(res => res.json()
-          .then(data => setActivity(data))
+          .then(data => {
+            if (data.message === "Not Found") {
+              setMessage("User not found")
+            } else {
+              setMessage("")
+              data ? setActivity(data) : setActivity([])
+            }
+          })
           .catch(err => console.log(err)))
         .catch(err => console.log(err))
         .finally(() => setLoading(false))
-      console.log(activity)
     }
   }, [username])
 
@@ -30,7 +46,6 @@ function App() {
     <div className="App">
       <div className="heading">
         <abbr title='Stare At Gits Without Loading Entire Github Page'><b>Git Stare 🥸</b></abbr>
-
       </div>
       <form onSubmit={handleSubmit}>
         <input type="text" placeholder='Enter Username...' autoComplete={"none"} name='username' className="search" />
@@ -46,7 +61,11 @@ function App() {
                 <></>
             }
             <br />
-            Most Recent Activity of {username}
+            {
+              message ?
+              message :
+              "Most Recent Activity of " + username
+            }
           </div>
           <br />
           <div className='activity-section-body'>
@@ -59,9 +78,9 @@ function App() {
                         <div className="item-type">
                           {item.type}
                         </div>
-                          <p className='time-stamp'>
-                            {new Date(item.created_at).toDateString()}
-                          </p>
+                        <p className='time-stamp'>
+                          {new Date(item.created_at).toDateString()}
+                        </p>
                         <div className="item-repo">
                           <a className='item-repo-link' href={"https://github.com/" + item.repo.name}>{item.repo.name}</a>
                         </div>

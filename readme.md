@@ -12,7 +12,7 @@ I made a small web app that will only load the recent activity of the user.
 - Load the activity of the user
 
 ### New 
-- Nothing Here, This is the first version of the app.
+- username can be specified in the url, format : ``` https://gitstare.web.app/username ```
 
 ### Future Scope
 - Activity Graph Support
