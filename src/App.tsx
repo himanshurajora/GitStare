@@ -2,6 +2,14 @@ import { FormEvent, FormEventHandler, useEffect, useState } from 'react'
 import logo from './logo.svg'
 import './App.css'
 
+
+declare interface IUserData {
+  repos: number
+  gists: number
+  followers: number
+  following: number
+}
+
 // My react hook getting username from router params
 // I don't need a hook in this case, but I'll make one anyway, because it looks cool
 // its the most simple react hook ever, technically it's not even a hook 
@@ -11,7 +19,7 @@ function useUsername() {
   return username
 }
 function App() {
-  const [count, setCount] = useState(0)
+  const [userData, setUserData] = useState<IUserData>();
   const paramUsername = useUsername()
   const [message, setMessage] = useState('')
   const [username, setUsername] = useState<FormDataEntryValue | null>(paramUsername);
@@ -24,6 +32,7 @@ function App() {
   }
 
   useEffect(() => {
+    // fetch user events
     if (username) {
       setLoading(true);
       fetch("https://api.github.com/users/" + username + "/events")
@@ -39,7 +48,27 @@ function App() {
           .catch(err => console.log(err)))
         .catch(err => console.log(err))
         .finally(() => setLoading(false))
+
+      // fetch user data
+      const response = fetch("https://api.github.com/users/" + username)
+        .then(res => res.json()
+          .then((data: any) => {
+            if (data.message === "Not Found") {
+              setMessage("User not found")
+            } else {
+              setMessage("")
+              const userData: IUserData = {
+                repos: data.public_repos,
+                gists: data.public_gists,
+                followers: data.followers,
+                following: data.following,
+              }
+
+              setUserData(userData)
+            }
+          }));
     }
+
   }, [username])
 
   return (
@@ -63,16 +92,36 @@ function App() {
             <br />
             {
               message ?
-              message :
-              "Most Recent Activity of " + username
+                message :
+                "Most Recent Activity of " + username
+            }
+            <br />
+            {
+              // show repos, gists, followers, following
+              userData ?
+                <div className="grid">
+                  <div className="grid-item">
+                    <span><a href={`https://github.com/${username}?tab=repositories`
+                    } className='user-data-link'>Repos</a>: {userData.repos}</span>
+                  </div>
+                  <div className="grid-item">
+                    <span><a href={`https://gist.github.com/${username}`} className='user-data-link'>Gists</a>: {userData.gists}</span>
+                  </div>
+                  <div className="grid-item">
+                    <span><a href={`https://github.com/${username}?tab=following`} className='user-data-link'>Following</a>: {userData.following}</span>
+                  </div>
+                  <div className="grid-item">
+                    <span><a href={`https://github.com/himanshurajora?tab=followers`} className='user-data-link'>Followers</a>: {userData.followers}</span>
+                  </div>
+                </div> : <></>
             }
           </div>
           <br />
           <div className='activity-section-body'>
             {loading ? <div>Loading...</div> :
-              activity.map((item: any) => {
+              activity.map((item: any, index: number) => {
                 return (
-                  <div className="activity-item">
+                  <div className="activity-item" key={index}>
                     <div className={item.type === "CreateEvent" ? "activity-item-new" : "activity-item-old"}>
                       <div className="activity-item-header">
                         <div className="item-type">
@@ -95,9 +144,6 @@ function App() {
                                       <div className="item-commit-item-message">
                                         {index + 1} ➡️  {commit.message}
                                       </div>
-                                      {/* <div className="item-commit-item-author">
-                                        {commit.author.name}
-                                      </div> */}
                                     </div>
                                   )
                                 }

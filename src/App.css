@@ -151,3 +151,26 @@ input[type=submit]{
 .time-stamp{
   font-size: small;
 }
+
+
+.grid {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  padding: 20px;
+}
+
+.grid-item{
+  background: #333d29;
+  color: #c2c5aa;
+  padding: 10px;
+  border-radius: 3px;
+  border: 1px solid gray;
+  margin:0px 5px;
+}
+
+.user-data-link{
+  text-decoration: none;
+  color: #c2c5aa;
+  text-decoration: underline;
+}
