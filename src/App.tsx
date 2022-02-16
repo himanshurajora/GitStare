@@ -1,6 +1,7 @@
 import { FormEvent, FormEventHandler, useEffect, useState } from 'react'
 import logo from './logo.svg'
 import './App.css'
+import { getActivityClass } from './utils'
 
 
 declare interface IUserData {
@@ -68,7 +69,6 @@ function App() {
             }
           }));
     }
-
   }, [username])
 
   return (
@@ -101,17 +101,17 @@ function App() {
               userData ?
                 <div className="grid">
                   <div className="grid-item">
-                    <span><a href={`https://github.com/${username}?tab=repositories`
+                    <span><a target={"_blank"} href={`https://github.com/${username}?tab=repositories`
                     } className='user-data-link'>Repos</a>: {userData.repos}</span>
                   </div>
                   <div className="grid-item">
-                    <span><a href={`https://gist.github.com/${username}`} className='user-data-link'>Gists</a>: {userData.gists}</span>
+                    <span><a target={"_blank"} href={`https://gist.github.com/${username}`} className='user-data-link'>Gists</a>: {userData.gists}</span>
                   </div>
                   <div className="grid-item">
-                    <span><a href={`https://github.com/${username}?tab=following`} className='user-data-link'>Following</a>: {userData.following}</span>
+                    <span><a target={"_blank"} href={`https://github.com/${username}?tab=following`} className='user-data-link'>Following</a>: {userData.following}</span>
                   </div>
                   <div className="grid-item">
-                    <span><a href={`https://github.com/himanshurajora?tab=followers`} className='user-data-link'>Followers</a>: {userData.followers}</span>
+                    <span><a target={"_blank"} href={`https://github.com/himanshurajora?tab=followers`} className='user-data-link'>Followers</a>: {userData.followers}</span>
                   </div>
                 </div> : <></>
             }
@@ -122,7 +122,7 @@ function App() {
               activity.map((item: any, index: number) => {
                 return (
                   <div className="activity-item" key={index}>
-                    <div className={item.type === "CreateEvent" ? "activity-item-new" : "activity-item-old"}>
+                    <div className={getActivityClass(item.type)}>
                       <div className="activity-item-header">
                         <div className="item-type">
                           {item.type}
@@ -131,7 +131,7 @@ function App() {
                           {new Date(item.created_at).toDateString()}
                         </p>
                         <div className="item-repo">
-                          <a className='item-repo-link' href={"https://github.com/" + item.repo.name}>{item.repo.name}</a>
+                          <a target={"_blank"} className='item-repo-link' href={"https://github.com/" + item.repo.name}>{item.repo.name}</a>
                         </div>
                         {
                           item.type === "PushEvent" ?
@@ -161,7 +161,7 @@ function App() {
         </div>
       </div>
       <div className="footer">
-        Made By Vedik Dev - <a href="https://github.com/himanshurajora" className='footer-link'>Himanshu Jangid</a>
+        Made By Vedik Dev - <a target={"_blank"} href="https://github.com/himanshurajora" className='footer-link'>Himanshu Jangid</a>
       </div>
     </div>
   )

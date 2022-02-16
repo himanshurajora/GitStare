@@ -70,13 +70,62 @@ input[type=submit]{
  align-items: center;
 }
 
-.activity-item-new{
+.activity-item-create-event{
   margin: 10px 20px;
   background: #7F4F24;
   padding: 10px;
 }
 
-.activity-item-old{
+.activity-item-delete-event{
+  margin: 10px 20px;
+  background: #FF1700;
+  padding: 10px;
+}
+
+.activity-item-pull-request-event{
+  margin: 10px 20px;
+  background: #139487;
+  padding: 10px;
+}
+
+.activity-item-watch-event{
+  margin: 10px 20px;
+  background: #FF6768;
+  color: white;
+  padding: 10px;
+}
+
+.activity-item-fork-event{
+  margin: 10px 20px;
+  background: #2D4263;
+  padding: 10px;
+}
+
+.activity-item-issues-event{
+  margin: 10px 20px;
+  background: #C84B31;
+  padding: 10px;
+}
+
+.activity-item-issue-comment-event{
+  margin: 10px 20px;
+  background: #357C3C;
+  padding: 10px;
+}
+
+.activity-item-pull-request-review-event{
+  margin: 10px 20px;
+  background: #145753;
+  padding: 10px;
+}
+
+.activity-item-public-event{
+  margin: 10px 20px;
+  background: #006e44;
+  padding: 10px;
+}
+
+.activity-item-default{
   margin: 10px 20px;
   background: #656D4A;
   padding: 10px;
