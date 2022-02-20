@@ -24,3 +24,7 @@ export function getActivityClass (type : string) : string {
         return "activity-item-default";
     }
 }
+
+export function getCommitUrl(repo: string, sha: string) : string {
+    return `https://github.com/${repo}/commit/${sha}`;
+}

@@ -1,7 +1,8 @@
 import { FormEvent, FormEventHandler, useEffect, useState } from 'react'
 import logo from './logo.svg'
 import './App.css'
-import { getActivityClass } from './utils'
+import { getActivityClass, getCommitUrl } from './utils'
+import { IGithubEvent } from './types'
 
 
 declare interface IUserData {
@@ -24,7 +25,7 @@ function App() {
   const paramUsername = useUsername()
   const [message, setMessage] = useState('')
   const [username, setUsername] = useState<FormDataEntryValue | null>(paramUsername);
-  const [activity, setActivity] = useState<any[]>([]);
+  const [activity, setActivity] = useState<IGithubEvent[]>([]);
   // loading state  
   const [loading, setLoading] = useState(false);
   const handleSubmit = (e: FormEvent) => {
@@ -142,7 +143,7 @@ function App() {
                                   return (
                                     <div className="item-commit-item">
                                       <div className="item-commit-item-message">
-                                        {index + 1} ➡️  {commit.message}
+                                        {index + 1} ➡️ <a href={getCommitUrl(item.repo.name, commit.sha)} target={"_blank"} > {commit.message}</a>
                                       </div>
                                     </div>
                                   )

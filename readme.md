@@ -10,9 +10,11 @@ I made a small web app that will only load the recent activity of the user.
 
 ### Features
 - Load the activity of the user
+- username can be specified in the url, format : ``` https://gitstare.web.app/username ```
 
 ### New 
-- username can be specified in the url, format : ``` https://gitstare.web.app/username ```
+- Identical color schemas for different types of activity
+- Direct Access to commit changes links
 
 ### Future Scope
 - Activity Graph Support
