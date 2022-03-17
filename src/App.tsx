@@ -3,6 +3,8 @@ import logo from './logo.svg'
 import './App.css'
 import { getActivityClass, getCommitUrl } from './utils'
 import { IGithubEvent } from './types'
+import PushEvent from './components/PushEvent'
+import PullRequest from './components/PullRequest'
 
 
 declare interface IUserData {
@@ -11,7 +13,6 @@ declare interface IUserData {
   followers: number
   following: number
 }
-
 // My react hook getting username from router params
 // I don't need a hook in this case, but I'll make one anyway, because it looks cool
 // its the most simple react hook ever, technically it's not even a hook 
@@ -31,6 +32,18 @@ function App() {
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault()
     setUsername(new FormData(e.target as HTMLFormElement).get("username"))
+  }
+
+  const renderActivity = (item: any) => {
+    switch (item.type) {
+      case 'PushEvent':
+        return <PushEvent item={item} />
+      case 'PullRequestEvent':
+        return <PullRequest item={item} />
+      default:
+        break;
+    }
+
   }
 
   useEffect(() => {
@@ -134,24 +147,7 @@ function App() {
                         <div className="item-repo">
                           <a target={"_blank"} className='item-repo-link' href={"https://github.com/" + item.repo.name}>{item.repo.name}</a>
                         </div>
-                        {
-                          item.type === "PushEvent" ?
-                            <div className="item-commit">
-                              Related Commits
-                              {
-                                item.payload.commits.map((commit: any, index: any) => {
-                                  return (
-                                    <div className="item-commit-item">
-                                      <div className="item-commit-item-message">
-                                        {index + 1} ➡️ <a href={getCommitUrl(item.repo.name, commit.sha)} target={"_blank"} > {commit.message}</a>
-                                      </div>
-                                    </div>
-                                  )
-                                }
-                                )}
-                            </div> :
-                            ""
-                        }
+                        {renderActivity(item)}
                       </div>
                     </div>
                   </div>
