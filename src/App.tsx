@@ -99,7 +99,7 @@ function App() {
           <div className="activity-section-header">
             {
               activity.length ?
-                <img src={activity[0].actor["avatar_url"]} className="avatar" alt="Profile" />
+                <a href={`https://github.com/${username}`} target="_blank"><img src={activity[0].actor["avatar_url"]} className="avatar" alt="Profile" /></a>
                 :
                 <></>
             }
@@ -107,7 +107,7 @@ function App() {
             {
               message ?
                 message :
-                "Most Recent Activity of " + username
+                <span> Most Recent Activity of <a className='username-link' href={`https://github.com/${username}`} target="_blank">{username}</a></span>
             }
             <br />
             {
