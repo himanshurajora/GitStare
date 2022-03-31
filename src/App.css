@@ -224,6 +224,34 @@ input[type=submit]{
   color: #f7d5ff;
 }
 
+
+/** issue comment */
+
+.item-issue-comment{
+  width: fit-content;
+  background-color : #02bd60;
+  border: none;
+  color: #ffffff;;
+  padding: 5px 10px;
+  margin: 5px;
+  border-radius: 3px; 
+}
+
+.item-issue-comment a{
+  color: #f0f0f0;
+  font-size: medium;
+}
+
+.item-issue-comment a:hover{
+  color: #e6e6e6;
+}
+
+.item-issue-comment a:visited{
+  color: #f7d5ff;
+}
+
+
+
 .footer{
   margin-top: 20px;
   font-size: small;

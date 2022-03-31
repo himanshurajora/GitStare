@@ -5,6 +5,7 @@ import { getActivityClass, getCommitUrl } from './utils'
 import { IGithubEvent } from './types'
 import PushEvent from './components/PushEvent'
 import PullRequest from './components/PullRequest'
+import IssueComment from './components/IssueComment'
 
 
 declare interface IUserData {
@@ -40,6 +41,8 @@ function App() {
         return <PushEvent item={item} />
       case 'PullRequestEvent':
         return <PullRequest item={item} />
+      case 'IssueCommentEvent':
+        return <IssueComment item={item} />
       default:
         break;
     }
