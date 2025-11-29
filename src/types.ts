@@ -42,6 +42,7 @@ export interface Payload {
     review?:        Review;
     issue?:         Issue;
     comment?:       Comment;
+    repository_id?: number;
 }
 
 export enum Action {
